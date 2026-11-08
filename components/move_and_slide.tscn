@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cj1y68a5485g2"]
+
+[ext_resource type="Script" uid="uid://c3xhnov0pcn7j" path="res://components/move_and_slide.gd" id="1_move"]
+
+[node name="MoveAndSlide" type="Node" unique_id=1765221062]
+process_physics_priority = 2
+script = ExtResource("1_move")

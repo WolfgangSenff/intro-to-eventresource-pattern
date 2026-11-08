@@ -4,7 +4,21 @@
 [ext_resource type="Texture2D" uid="uid://caxu57o5yx71i" path="res://assets/character_rectangle_green.png" id="2_gmlin"]
 [ext_resource type="Texture2D" uid="uid://bd1noxv1ss7p1" path="res://assets/item_sword.png" id="3_lvxji"]
 [ext_resource type="Resource" uid="uid://cqbjr84rpk37h" path="res://events/dashed.tres" id="5_75vfm"]
+[ext_resource type="Script" uid="uid://ck6lyv0ftr373" path="res://components/jump_component.gd" id="6_75vfm"]
 [ext_resource type="Script" uid="uid://bp38u6aljfb4c" path="res://components/dash_component.gd" id="6_dash"]
+[ext_resource type="Resource" path="res://events/moved.tres" id="7_moved"]
+[ext_resource type="Resource" uid="uid://d4h3ibqurj084" path="res://events/jumped.tres" id="8_5gtgg"]
+[ext_resource type="Script" uid="uid://baljyjo2ne0ox" path="res://components/facing_component.gd" id="8_facing"]
+[ext_resource type="Resource" path="res://events/double_jumped.tres" id="9_double_jumped"]
+[ext_resource type="Script" uid="uid://cpnwxkxp8nudd" path="res://components/double_jump_component.gd" id="10_double_jump"]
+[ext_resource type="Script" uid="uid://bd06kuk33gu6n" path="res://components/animation_reaction_component.gd" id="11_reaction"]
+[ext_resource type="Resource" path="res://events/walked.tres" id="12_walked"]
+[ext_resource type="Resource" path="res://events/idled.tres" id="13_idled"]
+[ext_resource type="Resource" path="res://events/airborne.tres" id="14_airborne"]
+[ext_resource type="Script" uid="uid://h3y4pjiu3e6" path="res://components/hurt_player_component.gd" id="15_hurt_player"]
+[ext_resource type="Resource" path="res://events/hurt_player.tres" id="16_hurt_player_event"]
+[ext_resource type="PackedScene" uid="uid://cj1y68a5485g2" path="res://components/move_and_slide.tscn" id="17_move_and_slide"]
+[ext_resource type="PackedScene" uid="uid://c5woehmu548t8" path="res://components/gravity.tscn" id="18_lgqa7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(39, 60)
@@ -197,10 +211,54 @@ _data = {
 &"walk": SubResource("Animation_qek5x")
 }
 
+[sub_resource type="Animation" id="Animation_fcs02"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_myrg7"]
+resource_name = "hurt"
+length = 0.6
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kvlxm"]
+_data = {
+&"RESET": SubResource("Animation_fcs02"),
+&"hurt": SubResource("Animation_myrg7")
+}
+
 [node name="Player" type="CharacterBody2D" unique_id=1986365274 groups=["level_travelers", "player"]]
 collision_layer = 2
 script = ExtResource("1_player")
 dashed = ExtResource("5_75vfm")
+moved = ExtResource("7_moved")
+jumped = ExtResource("8_5gtgg")
+double_jumped = ExtResource("9_double_jumped")
+walked = ExtResource("12_walked")
+idled = ExtResource("13_idled")
+airborne = ExtResource("14_airborne")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=1880857310]
 position = Vector2(0.5, 0)
@@ -222,12 +280,66 @@ unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_5gtgg")
 autoplay = &"idle"
 
+[node name="HurtAnimationPlayer" type="AnimationPlayer" parent="." unique_id=469133852]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_kvlxm")
+
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2123459453]
 
-[node name="Dash" type="Node" parent="." unique_id=1646656593 node_paths=PackedStringArray("body", "animation_player", "facing")]
+[node name="Dash" type="Node" parent="." unique_id=1646656593 node_paths=PackedStringArray("body", "facing")]
 script = ExtResource("6_dash")
 body = NodePath("..")
-animation_player = NodePath("../AnimationPlayer")
 facing = NodePath("../Sprite2D")
 duration = 0.25
 game_event = ExtResource("5_75vfm")
+
+[node name="Jump" type="Node" parent="." unique_id=1769578753 node_paths=PackedStringArray("body")]
+script = ExtResource("6_75vfm")
+body = NodePath("..")
+game_event = ExtResource("8_5gtgg")
+
+[node name="Facing" type="Node" parent="." unique_id=1513641627 node_paths=PackedStringArray("sprite")]
+script = ExtResource("8_facing")
+sprite = NodePath("../Sprite2D")
+game_event = ExtResource("7_moved")
+
+[node name="DoubleJump" type="Node" parent="." unique_id=1665175159 node_paths=PackedStringArray("jump")]
+script = ExtResource("10_double_jump")
+jump = NodePath("../Jump")
+game_event = ExtResource("9_double_jumped")
+
+[node name="DashAnimation" type="Node" parent="." unique_id=2126069114 node_paths=PackedStringArray("animation_player")]
+script = ExtResource("11_reaction")
+animation_name = "dash"
+animation_player = NodePath("../AnimationPlayer")
+game_event = ExtResource("5_75vfm")
+
+[node name="WalkAnimation" type="Node" parent="." unique_id=808433595 node_paths=PackedStringArray("animation_player")]
+script = ExtResource("11_reaction")
+animation_name = "walk"
+animation_player = NodePath("../AnimationPlayer")
+game_event = ExtResource("12_walked")
+
+[node name="IdleAnimation" type="Node" parent="." unique_id=953961529 node_paths=PackedStringArray("animation_player")]
+script = ExtResource("11_reaction")
+animation_name = "idle"
+animation_player = NodePath("../AnimationPlayer")
+game_event = ExtResource("13_idled")
+
+[node name="AirborneAnimation" type="Node" parent="." unique_id=495077732 node_paths=PackedStringArray("animation_player")]
+script = ExtResource("11_reaction")
+animation_name = "jump"
+animation_player = NodePath("../AnimationPlayer")
+game_event = ExtResource("14_airborne")
+
+[node name="HurtPlayer" type="Node" parent="." unique_id=1547266969 node_paths=PackedStringArray("body", "animation_player")]
+script = ExtResource("15_hurt_player")
+body = NodePath("..")
+animation_player = NodePath("../HurtAnimationPlayer")
+game_event = ExtResource("16_hurt_player_event")
+
+[node name="Gravity" parent="." unique_id=962012914 node_paths=PackedStringArray("body") instance=ExtResource("18_lgqa7")]
+body = NodePath("..")
+
+[node name="MoveAndSlide" parent="." unique_id=1063843980 node_paths=PackedStringArray("body") instance=ExtResource("17_move_and_slide")]
+body = NodePath("..")
