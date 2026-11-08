@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dm50avgb0ol8g"]
+
+[ext_resource type="Texture2D" uid="uid://bmtq8kc8mv721" path="res://assets/block.png" id="1_0y8gg"]
+[ext_resource type="PackedScene" uid="uid://dx3lvx260csxm" path="res://scenes/player/player.tscn" id="1_u0om3"]
+[ext_resource type="Script" uid="uid://bqkchkmrygei7" path="res://scenes/levels/collision_shape_2d.gd" id="1_vvcwp"]
+
+[node name="LevelBase" type="Node2D" unique_id=297943326]
+
+[node name="Ground" type="StaticBody2D" parent="." unique_id=1346832023]
+collision_mask = 6
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ground" unique_id=1279232804]
+unique_name_in_owner = true
+polygon = PackedVector2Array(-484, -9, -485, 24, 682, 24, 682, -11)
+script = ExtResource("1_vvcwp")
+
+[node name="Polygon2D" type="Polygon2D" parent="Ground/CollisionPolygon2D" unique_id=187973729]
+unique_name_in_owner = true
+texture_repeat = 2
+texture = ExtResource("1_0y8gg")
+
+[node name="Player" parent="." unique_id=1986365274 instance=ExtResource("1_u0om3")]
+position = Vector2(-60, -41)
