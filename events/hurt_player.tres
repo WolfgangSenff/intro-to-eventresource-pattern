@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EventResource" format=3]
+[gd_resource type="Resource" script_class="EventResource" format=3 uid="uid://dcm4ihmc18b5p"]
 
 [ext_resource type="Script" uid="uid://6uwssipguibq" path="res://events/event_resource.gd" id="1_event"]
 

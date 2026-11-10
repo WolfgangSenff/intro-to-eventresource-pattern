@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bmtq8kc8mv721" path="res://assets/block.png" id="1_0y8gg"]
 [ext_resource type="PackedScene" uid="uid://dx3lvx260csxm" path="res://scenes/player/player.tscn" id="1_u0om3"]
 [ext_resource type="Script" uid="uid://bqkchkmrygei7" path="res://scenes/levels/collision_shape_2d.gd" id="1_vvcwp"]
-[ext_resource type="PackedScene" path="res://scenes/hazards/spike.tscn" id="2_spike"]
+[ext_resource type="PackedScene" uid="uid://dfqkhxn1sagye" path="res://scenes/hazards/spike.tscn" id="2_spike"]
 [ext_resource type="PackedScene" uid="uid://jocm038goral" path="res://scenes/enemies/enemy.tscn" id="3_enemy"]
 
 [node name="LevelBase" type="Node2D" unique_id=297943326]

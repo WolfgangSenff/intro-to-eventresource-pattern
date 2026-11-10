@@ -1,4 +1,4 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dfqkhxn1sagye"]
 
 [ext_resource type="Script" uid="uid://53r5mhpurbom" path="res://components/hurt_player_area_component.gd" id="1_area"]
 [ext_resource type="Resource" path="res://events/hurt_player.tres" id="2_hurt_player"]
@@ -6,17 +6,17 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_spike"]
 size = Vector2(28, 10)
 
-[node name="Spike" type="Area2D"]
+[node name="Spike" type="Area2D" unique_id=1206512245]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_area")
 hurt_player = ExtResource("2_hurt_player")
 knocks_back = false
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=465995608]
 color = Color(0.75, 0.75, 0.8, 1)
 polygon = PackedVector2Array(-16, 0, -10.7, -16, -5.3, 0, 0, -16, 5.3, 0, 10.7, -16, 16, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1771371270]
 position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_spike")

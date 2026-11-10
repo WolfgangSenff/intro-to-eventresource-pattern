@@ -1,16 +1,16 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://xr0qlq8vmboc"]
 
 [ext_resource type="Script" uid="uid://ditxnfqyo78i" path="res://components/turn_around.gd" id="1_turn"]
 
-[node name="TurnAround" type="Node2D"]
+[node name="TurnAround" type="Node2D" unique_id=1620245141]
 process_physics_priority = 1
 script = ExtResource("1_turn")
 
-[node name="LedgeCast" type="RayCast2D" parent="."]
+[node name="LedgeCast" type="RayCast2D" parent="." unique_id=1408651818]
 unique_name_in_owner = true
 position = Vector2(26, 0)
 target_position = Vector2(0, 40)
 
-[node name="WallCast" type="RayCast2D" parent="."]
+[node name="WallCast" type="RayCast2D" parent="." unique_id=960979590]
 unique_name_in_owner = true
 target_position = Vector2(34, 0)

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://jocm038goral"]
 
 [ext_resource type="Texture2D" uid="uid://b2gkslfbk7hxf" path="res://assets/character_round_red.png" id="1_sprite"]
-[ext_resource type="PackedScene" path="res://components/turn_around.tscn" id="2_turn"]
+[ext_resource type="PackedScene" uid="uid://xr0qlq8vmboc" path="res://components/turn_around.tscn" id="2_turn"]
 [ext_resource type="Script" uid="uid://jbu34nhbsbiy" path="res://components/walk_component.gd" id="4_walk"]
 [ext_resource type="PackedScene" uid="uid://c5woehmu548t8" path="res://components/gravity.tscn" id="5_jt03m"]
 [ext_resource type="PackedScene" uid="uid://cj1y68a5485g2" path="res://components/move_and_slide.tscn" id="5_move"]
